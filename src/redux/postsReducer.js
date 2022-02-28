@@ -13,6 +13,7 @@ const createActionName = actionName => `app/posts/${actionName}`;
 
 export const removePost = payload => ({ type: createActionName('REMOVE_POST'), payload });
 export const addPost = payload => ({ type: createActionName('ADD_POST'), payload });
+export const editPost = payload => ({ type: createActionName('EDIT_POST'), payload });
 
 const postsReducer = (statePart = [], action) => {
     switch (action.type) {
@@ -20,6 +21,8 @@ const postsReducer = (statePart = [], action) => {
             return statePart.filter(post => post.id !== action.payload);
         case createActionName('ADD_POST'):
             return [ ...statePart, { ...action.payload, id: shortid() } ];
+        case createActionName('EDIT_POST'):
+            return statePart.map(post => (post.id === action.payload.id) ? {...post, ...action.payload} : post);
         default:
             return statePart;
     };
