@@ -1,0 +1,32 @@
+.bold {
+    font-weight: bold;
+}
+
+.postInfo {
+    margin-left: 18%;
+    font-size: 1.2rem;
+}
+
+@media(max-width: 1100px) {
+    .postInfo {
+        margin-left: 15%;
+    }
+}
+
+@media(max-width: 1100px) {
+    .postInfo {
+        margin-left: 15%;
+    }
+}
+
+@media(max-width: 992px) {
+    .postInfo {
+        margin-left: 13%;
+    }
+}
+
+@media(max-width: 768px) {
+    .postInfo {
+        margin-left: 10%;
+    }
+}
