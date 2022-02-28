@@ -1,3 +1,4 @@
+import shortid from "shortid";
 
 // selectors
 
@@ -11,11 +12,14 @@ const createActionName = actionName => `app/posts/${actionName}`;
 // action creators
 
 export const removePost = payload => ({ type: createActionName('REMOVE_POST'), payload });
+export const addPost = payload => ({ type: createActionName('ADD_POST'), payload });
 
 const postsReducer = (statePart = [], action) => {
     switch (action.type) {
         case createActionName('REMOVE_POST'):
             return statePart.filter(post => post.id !== action.payload);
+        case createActionName('ADD_POST'):
+            return [ ...statePart, { ...action.payload, id: shortid() } ];
         default:
             return statePart;
     };
