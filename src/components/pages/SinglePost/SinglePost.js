@@ -1,16 +1,29 @@
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPostById } from '../../../redux/postsReducer';
+import { removePost } from '../../../redux/postsReducer';
 import { useParams } from 'react-router';
-import { Row, Col, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Row, Col, Button, Modal } from 'react-bootstrap';
+import { Link, Navigate } from 'react-router-dom';
 import styles from './SinglePost.module.scss';
-import clsx from 'clsx';
+
 
 
 const SinglePost = () => {
 
+    const [showModal, setShowModal] = useState(false);
+    const handleClose = () => setShowModal(false);
+    const handleShow = () => setShowModal(true);
+
     const { id } = useParams();
     const postData = useSelector(state => getPostById(state, id));
+
+    const dispatch = useDispatch();
+    const remove = () => dispatch(removePost(id));
+
+    if(!postData) {
+        return <Navigate to="/" />
+    } 
 
     return (
         <article>
@@ -22,7 +35,7 @@ const SinglePost = () => {
                     <Button as={Link} to={`/post/edit/${postData.id}`} className='mx-2' variant="outline-info">
                         Edit
                     </Button>
-                    <Button variant="outline-danger">
+                    <Button variant="outline-danger" onClick={handleShow}>
                         Delete
                     </Button>
                 </Col>
@@ -32,6 +45,24 @@ const SinglePost = () => {
             <p className=""><span className={styles.bold}>Published: </span>{postData.publishedDate}</p>
                 <p>{postData.content}</p>
             </div>
+
+            <Modal show={showModal} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Are you sure?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    The operation will completely remove this post from the app.
+                    Are you sure you want to do that?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button variant='danger' onClick={() => {handleClose() ; remove()}}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </article>
     );
 };
