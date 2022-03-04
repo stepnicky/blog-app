@@ -1,4 +1,5 @@
-import { useState } from 'react';
+// eslint-disable-next-line
+import { useState, dangerouslySetInnerHTML } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostById } from '../../../redux/postsReducer';
 import { removePost } from '../../../redux/postsReducer';
@@ -6,10 +7,9 @@ import { useParams } from 'react-router';
 import { Row, Col, Button, Modal } from 'react-bootstrap';
 import { Link, Navigate } from 'react-router-dom';
 import styles from './SinglePost.module.scss';
+import dateToStr from '../../../utils/dateToStr';
 
-
-
-const SinglePost = () => {
+const SinglePost = props => {
 
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
@@ -17,6 +17,7 @@ const SinglePost = () => {
 
     const { id } = useParams();
     const postData = useSelector(state => getPostById(state, id));
+    
 
     const dispatch = useDispatch();
     const remove = () => dispatch(removePost(id));
@@ -41,9 +42,10 @@ const SinglePost = () => {
                 </Col>
             </Row>
             <div className={styles.postInfo}>
-            <p className='mb-0'><span className={styles.bold}>Author: </span>{postData.author}</p>
-            <p className=""><span className={styles.bold}>Published: </span>{postData.publishedDate}</p>
-                <p>{postData.content}</p>
+                <p className='mb-0'><span className={styles.bold}>Author: </span>{postData.author}</p>
+                <p className=""><span className={styles.bold}>Published: </span>{dateToStr(postData.publishedDate)}</p>
+                <p dangerouslySetInnerHTML={{__html: postData.content}} />
+                    
             </div>
 
             <Modal show={showModal} onHide={handleClose}>

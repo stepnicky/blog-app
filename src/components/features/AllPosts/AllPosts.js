@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getAllPosts } from "../../../redux/postsReducer";
 import { Link } from 'react-router-dom';
 import styles from './AllPosts.module.scss';
+import dateToStr from '../../../utils/dateToStr';
 
 const AllPosts = () => {
 
@@ -16,7 +17,7 @@ const AllPosts = () => {
                         <Card.Body>
                             <Card.Title>{post.title}</Card.Title>
                             <span className={styles.bold}>Author: </span>{post.author}
-                            <Card.Text><span className={styles.bold}>Published: </span>{post.publishedDate}</Card.Text>
+                            <Card.Text><span className={styles.bold}>Published: </span>{dateToStr(post.publishedDate)}</Card.Text>
                             <Card.Text>{post.shortDescription}</Card.Text>
                             <Button as={Link} to={`/post/${post.id}`}>Read more</Button>
                         </Card.Body>
