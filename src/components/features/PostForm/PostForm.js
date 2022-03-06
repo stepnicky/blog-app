@@ -12,6 +12,7 @@ const PostForm = props => {
     const [date, setDate] = useState(props.date || new Date());
     const [description, setDescription] = useState(props.description || '');
     const [content, setContent] = useState(props.content || '');
+    const [category, setCategory] = useState(props.category || '');
     const [contentError, setContentError] = useState(false);
     const [dateError, setDateError] = useState(false);
 
@@ -21,6 +22,7 @@ const PostForm = props => {
         title: title,
         author: author,
         publishedDate: date,
+        category: category,
         shortDescription: description,
         content: content,
     }
@@ -69,6 +71,18 @@ const PostForm = props => {
                 {dateError && <small className="d-block form-text text-danger mt-1">
                     This field is required
                 </small>}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formDate">
+                <Form.Label>Category</Form.Label>
+                <Form.Select 
+                    defaultValue={category} onChange={e => setCategory(e.target.value)}
+                    className={styles.formControl} size='lg'
+                >
+                    <option>Select category...</option>
+                    <option value="sport">Sport</option>
+                    <option value="news">News</option>
+                    <option value="movies">Movies</option>
+                </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formDescription">
                 <Form.Label>Short description</Form.Label>

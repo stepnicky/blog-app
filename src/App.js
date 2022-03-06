@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './components/pages/Home/Home';
+import Categories from './components/pages/Categories/Categories';
+import SingleCategory from './components/pages/SingleCategory/SingleCategory';
 import Post from './components/pages/SinglePost/SinglePost';
 import AddPost from './components/pages/AddPost/AddPost';
 import EditPost from './components/pages/EditPost/EditPost';
@@ -15,6 +17,8 @@ const App = () => {
       <Header/>
       <Routes>
         <Route path='/' element={<Home/>} />
+        <Route path='/categories' element={<Categories />} />
+        <Route path='/category/:category' element={<SingleCategory />} />
         <Route path='/about' element={<About/>} />
         <Route path='/post/:id' element={<Post/>} />
         <Route path='/post/add' element={<AddPost/>} />

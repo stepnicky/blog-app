@@ -43,7 +43,8 @@ const SinglePost = props => {
             </Row>
             <div className={styles.postInfo}>
                 <p className='mb-0'><span className={styles.bold}>Author: </span>{postData.author}</p>
-                <p className=""><span className={styles.bold}>Published: </span>{dateToStr(postData.publishedDate)}</p>
+                <p className='mb-0'><span className={styles.bold}>Published: </span>{dateToStr(postData.publishedDate)}</p>
+                <p><span className={styles.bold}>Category: </span>{postData.category.charAt(0).toUpperCase() + postData.category.slice(1)}</p>
                 <p dangerouslySetInnerHTML={{__html: postData.content}} />
                     
             </div>
